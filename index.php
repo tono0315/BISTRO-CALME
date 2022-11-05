@@ -1,62 +1,12 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?php bloginfo('name'); ?></title>
-    <link href="<?php echo get_template_directory_uri(); ?>/assets/css/styles.min.css" rel="stylesheet">
-    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="<?php echo get_template_directory_uri(); ?>/assets/js/main.js"></script>
-</head>
-<body>
-    <header class="header">
-        <div class="header_inner">
-            <div class="header_logo">
-                <h1><a href="/"><img src="<?php echo get_template_directory_uri(); ?>/assets/img/common/logo@2x.png" alt="BISTRO CALME"></a></h1>
-            </div>
-
-            <div class="header_desc"><p>サイトのキャッチフレーズ</p></div>
-
-            <form class="header_search">
-                <input type="text" placeholder="キーワードを入力">
-                <i class="fas fa-search"></i>
-            </form>
+    <?php get_header();?>
+    <?php if(is_home()) :?>
+        <div class="jumbotron">
+            <div class="jumbotron_item" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/img/home/jumbotron-1@2x.jpg')"></div>
+            <div class="jumbotron_item" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/img/home/jumbotron-2@2x.jpg')"></div>
+            <div class="jumbotron_item" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/img/home/jumbotron-3@2x.jpg')"></div>
         </div>
-
-        <div class="header_links">
-            <nav class="gnav">
-                <ul class="">
-                    <li><a href="#">HOME</a></li>
-                    <li><a href="#">わたしたちについて</a></li>
-                    <li><a href="#">アクセス</a></li>
-                    <li><a href="#">最新情報</a></li>
-                    <li><a href="#">お問い合わせ</a></li>
-                </ul>
-            </nav>
-
-            <ul class="header_sns">
-                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-            </ul>
-        </div>
-
-        <svg class="header_menu" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="30" height="30" viewBox="0 0 30 30">
-            <defs><clipPath id="clip-path"><rect width="30" height="30" fill="none"/></clipPath></defs>
-            <g clip-path="url(#clip-path)">
-                <rect class="header_border header_border-1" width="30" height="2" transform="translate(0 0)"/>
-                <rect class="header_border header_border-2" width="30" height="2" transform="translate(0 10)"/>
-                <rect class="header_border header_border-3" width="30" height="2" transform="translate(0 20)"/>
-            </g>
-        </svg>
-    </header>
-
-    <div class="jumbotron">
-        <div class="jumbotron_item" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/img/home/jumbotron-1@2x.jpg')"></div>
-        <div class="jumbotron_item" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/img/home/jumbotron-2@2x.jpg')"></div>
-        <div class="jumbotron_item" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/img/home/jumbotron-3@2x.jpg')"></div>
-    </div>
+    <?php endif;?>
+    
 
     <section class="sec">
         <div class="container">
@@ -65,68 +15,33 @@
             </header>
 
             <div class="row">
-                <div class="col-md-4">
-                    <article class="news">
-                        <div class="news_pic">
-                            <a href="#">
-                                <img src="<?php echo get_template_directory_uri(); ?>/assets/img/home/news_img-1.jpg" alt="">
-                            </a>
+                <?php if(have_posts()):?>
+                    <?php while(have_posts()):the_post();?>
+                        <div class="col-md-4">
+                            <article id=post-<?php the_ID();?> <?php post_class("news");?>>
+                                <div class="news_pic">
+                                    <a href="<?php the_permalink();?>">
+                                    <?php if(has_post_thumbnail()):?>
+                                        <?php the_post_thumbnail('medium');?>
+                                    <?php else:?>
+                                        <img src="<?php echo get_template_directory_uri();?>/assets/img/common/noimage_600x400.png">
+                                    <?php endif;?>
+                                        
+                                    </a>
+                                </div>
+                                <div class="news_meta">
+                                    <?php the_category();?> 
+                                    <time class="news_time" datetime="<?php the_time('Y-m-d');?>"><?php the_time('Y年m月d日');?></time>
+                                </div>
+                                <h2 class="news_title"><a href="#"><?php the_title();?></a></h2>
+                                <div class="news_desc">
+                                    <p><?php the_excerpt();?></p>
+                                    <p><a href="<?php the_permalink();?>">[続きを読む]</a></p>
+                                </div>
+                            </article>
                         </div>
-                        <div class="news_meta">
-                            <ul class="post-categories">
-                                <li><a href="#">お知らせ</a></li>
-                            </ul>
-                            <time class="news_time" datetime="2019-00-00">2019年00月00日</time>
-                        </div>
-                        <h2 class="news_title"><a href="#">タイトルタイトルタイトルタイトル</a></h2>
-                        <div class="news_desc">
-                            <p>概要が入ります。概要が入ります。概要が入ります。概要が入ります。概要が入ります。概要が入ります。</p>
-                            <p><a href="#">[続きを読む]</a></p>
-                        </div>
-                    </article>
-                </div>
-
-                <div class="col-md-4">
-                    <article class="news">
-                        <div class="news_pic">
-                            <a href="#">
-                                <img src="<?php echo get_template_directory_uri(); ?>/assets/img/home/news_img-2.jpg" alt="">
-                            </a>
-                        </div>
-                        <div class="news_meta">
-                            <ul class="post-categories">
-                                <li><a href="#">お知らせ</a></li>
-                            </ul>
-                            <time class="news_time" datetime="2019-00-00">2019年00月00日</time>
-                        </div>
-                        <h2 class="news_title"><a href="#">タイトルタイトルタイトルタイトル</a></h2>
-                        <div class="news_desc">
-                            <p>概要が入ります。概要が入ります。概要が入ります。概要が入ります。概要が入ります。概要が入ります。</p>
-                            <p><a href="#">[続きを読む]</a></p>
-                        </div>
-                    </article>
-                </div>
-
-                <div class="col-md-4">
-                    <article class="news">
-                        <div class="news_pic">
-                            <a href="#">
-                                <img src="<?php echo get_template_directory_uri(); ?>/assets/img/home/news_img-3.jpg" alt="">
-                            </a>
-                        </div>
-                        <div class="news_meta">
-                            <ul class="post-categories">
-                                <li><a href="#">お知らせ</a></li>
-                            </ul>
-                            <time class="news_time" datetime="2019-00-00">2019年00月00日</time>
-                        </div>
-                        <h2 class="news_title"><a href="#">タイトルタイトルタイトルタイトル</a></h2>
-                        <div class="news_desc">
-                            <p>概要が入ります。概要が入ります。概要が入ります。概要が入ります。概要が入ります。概要が入ります。</p>
-                            <p><a href="#">[続きを読む]</a></p>
-                        </div>
-                    </article>
-                </div>
+                    <?php endwhile;?>
+                <?php endif;?>
             </div>
 
             <p class="sec_btn">
@@ -187,29 +102,4 @@
     </section>
 
     <div class="pagetop js-pagetop"><i class="fas fa-angle-up"></i>PAGE TOP</div>
-
-    <footer class="footer">
-        <div class="container">
-            <div class="footer_inner">
-                <nav>
-                    <ul>
-                        <li><a href="#">HOME</a></li>
-                        <li><a href="#">わたしたちについて</a></li>
-                        <li><a href="#">アクセス</a></li>
-                        <li><a href="#">最新情報</a></li>
-                        <li><a href="#">お問い合わせ</a></li>
-                    </ul>
-                </nav>
-                <div class="footer_copyright">
-                    <small>&copy; BISTRO CALME All rights reserved.</small>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-<link href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-<script src="<?php echo get_template_directory_uri(); ?>/assets/js/home.js"></script>
-
-</body>
-</html>
+    <?php get_footer();?>
