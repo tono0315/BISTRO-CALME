@@ -11,7 +11,11 @@
                         <h2 class="main_title"><?php wp_title('');?></h2>
                     <?php endif;?>
                     <div class="row">
-                        <?php get_template_part('template-parts/loop-news');?>
+                        <?php if(have_posts()):?>
+                            <?php while(have_posts()):the_post();?>
+                                <?php get_template_part('template-parts/loop-news');?>
+                            <?php endwhile;?>
+                        <?php endif;?>
                     </div>
                 </div>
 

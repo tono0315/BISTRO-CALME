@@ -1,5 +1,4 @@
-<?php if(have_posts()):?>
-    <?php while(have_posts()):the_post();?>
+
         <div class="col-md-4">
             <article id=post-<?php the_ID();?> <?php post_class("news");?>>
                 <div class="news_pic">
@@ -22,5 +21,3 @@
                 </div>
             </article>
         </div>
-    <?php endwhile;?>
-<?php endif;?>
