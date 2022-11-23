@@ -27,7 +27,7 @@
         </div>
     </main>
 
-    <div class="pagetop js-pagetop"><i class="fas fa-angle-up"></i>PAGE TOPへ戻る</div>
+    <div class="pagetop js-pagetop"><i class="fas fa-angle-up"></i>PAGE TOP</div>
     <?php get_footer();?>
     
     </body>
